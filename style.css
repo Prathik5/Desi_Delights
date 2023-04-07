@@ -33,9 +33,10 @@
     height: 400px;
 }
 
-.RestaurantCard > img {
+.immage{
     width: 100%;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .tags{
@@ -54,4 +55,17 @@ h3{
 
 #headd{
     color: black;
+}
+
+.aRea{
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+    border-radius: 12px;
+    width: 110px;
+}
+
+.delTime{
+    padding-left: 45px;
+    display: inline;
 }
