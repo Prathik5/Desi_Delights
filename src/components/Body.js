@@ -2,6 +2,8 @@ import { restaurantList } from "../Config";
 import RestrauntCart from "./RestrauntCart";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+
 
 
 const filterData = (searchText, restaurant) =>{
@@ -34,7 +36,12 @@ const Body = () =>{
   // if(filteredrestaurant?.length === 0) 
   //   return <h1>No matching restaurant found</h1>
 
-    return (allrestaraunt?.length === 0) ? <Shimmer/> : ( 
+    return (allrestaraunt?.length === 0) ?
+     <Shimmer/>
+     
+    : 
+     
+     ( 
       <> 
       <div className="searchBar">
         <input 
@@ -57,7 +64,11 @@ const Body = () =>{
                     return <h1>No matching restaurant found</h1>
                 }
                 else{  
-                  return <RestrauntCart {...restaurant.data} key={restaurant.data.id}/>
+                  return(
+                    <Link to={"/restaurant/" + restaurant.data.id}>
+                    <RestrauntCart {...restaurant.data} key={restaurant.data.id}/>
+                    </Link>
+                  )
               }
             })
             }

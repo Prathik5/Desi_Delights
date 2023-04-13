@@ -15,9 +15,9 @@ const RestrauntCart = ( {
         } alt="Picture" title={name}
         />
         <h2>{name}</h2>
-        <h3>{cuisines.join(", ")}</h3>
-        <h4 className="aRea">{area}</h4>
-        <h4>Cost for 2 : {costForTwo}<span className="delTime">{deliveryTime} mins</span></h4>
+        <span>{cuisines.join(", ")}</span>
+        <div className="aRea">{area}</div>
+        <p>Cost for 2 : {costForTwo}<span className="delTime">{deliveryTime} mins</span></p>
         
       </div>
     )

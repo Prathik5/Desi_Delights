@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const loggedInUser = () => {
   return true
@@ -21,9 +22,15 @@ const Header = () =>{
         <h1> <a href="/" id="headd"> Fatty AmericA</a></h1>
         <div className="navItems">
           <ul>
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About Us</Link>
+            </li>
+            <li>
+              <Link to="/contact"> Contact Us</Link>
+              </li>
             <li>Cart</li>
           </ul>
         </div>
