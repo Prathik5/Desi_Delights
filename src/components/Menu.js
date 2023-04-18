@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IMG_CDN } from "../Config";
 import Shimmer from "./Shimmer";
+import Vegimg from "../Assets/Images/VegImage.jpg";
+import NonVegimg from "../Assets/Images/NonVegImg.png";
+
 
 
 const Menu = ()=>{
@@ -31,7 +34,9 @@ const Menu = ()=>{
     const restName = restta[0]?.card?.card?.info?.name;
     const restImage = restta[0]?.card?.card?.info?.cloudinaryImageId;
     const restRating = restta[0]?.card?.card?.info?.avgRatingString;
+    const restTotRating = restta[0]?.card?.card?.info?.totalRatingsString;
     const restcost = restta[0]?.card?.card?.info?.costForTwoMessage;
+    const restArea = restta[0]?.card?.card?.info?.areaName;
     
     const restItems = restta[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
 
@@ -39,19 +44,43 @@ const Menu = ()=>{
 
     return(!restta) ? <Shimmer/> : (
         <div className="Menu">
-            <div>
+            <div className="Restaurant-info">
             {/* <h1>Restaurant ID {id}</h1> */}
-            <h2>{restName}</h2>
-                <img src={IMG_CDN + restImage} alt={restName} />
-                <h2>&#9733; {restRating} </h2>
-                <div>Cost : {restcost}</div>
+            <h2 className="Restaurant-menu-name">{restName}</h2>
+                <img className="Restaurant-menu-image" src={IMG_CDN + restImage} alt={restName} />
+                <div className="Rating-cost-area">
+                    <span className="Restaurant-menu-rating">&#9733; {restRating} 
+                        {/* <span>{restTotRating}</span> */}
+                    </span>
+                    <span>&middot;</span>
+                    <span className="Restaurant-menu-cost">Cost : {restcost}</span>
+                    <span>&middot;</span>
+                    <span className="Restaurant-menu-area">{restArea}</span>
+                </div>
             </div>
+            <hr />
 
-            <div>
-                <h1>Menu</h1>
-                <ul>{
+            <div className="Menu-item-box">
+                {/* <h1 >Menu</h1> */}
+                <ul >{
                         restItems?.map((items, index) =>{
-                            return <li key={index}>{items.card.info.name}</li>
+                            return( 
+                                    <div>
+                                        <div className="Just-checking" >
+                                            <li className="Item-name"  key={index}>{items.card.info.name}</li>
+                                            <span key = "JustVeg">{items.card.info.isVeg === 1 ? <img className="Veg-or-not" src={Vegimg} alt="Veg"/> : <img className="Veg-or-not" src={NonVegimg} alt="Non-Veg"/>}</span>
+                                            <h3 key = "Cost">&#8377;{(items.card.info.price)/100}</h3> 
+
+                                            <p key = "AboutFood">{items.card.info.description}</p>
+                                        </div>
+
+                                        <div className="CHecking-again">
+                                            <img className="Menu-Food-Picture" src={ IMG_CDN + items.card.info.imageId} alt="" />
+                                        </div>
+                                        
+                                        <hr />
+                                    </div>
+                            )
                     })
                     }
                 </ul>

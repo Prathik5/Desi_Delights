@@ -8,7 +8,6 @@ const Shimmer = () =>{
                 <img  className="shimmer-img"/>
                 <h2 className="restName"></h2>
                 <h3 className="restCuisine"></h3>
-                <h4 className="restArea"></h4>
                 <h4 className="cost"><span className="deliTiming"></span></h4>
             </div>
             )}

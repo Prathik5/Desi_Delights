@@ -9,7 +9,7 @@ const  Title = () =>{
     return(
       <a href="/">
         <img className="imagee" src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/39-Food-Delivery-Logos-That-Will-Leave-You-Hungry-For-More/food-app-by-town-brandcrowd.png" 
-        alt="Food app hai badwe" />
+        alt="Food app hai " />
       </a>
   )}
   
@@ -19,7 +19,7 @@ const Header = () =>{
     return (
       <div className="Header">
         <Title/>
-        <h1> <a href="/" id="headd"> Fatty AmericA</a></h1>
+        <h1> <a href="/" id="headd"> Foood Villa</a></h1>
         <div className="navItems">
           <ul>
             <li>
