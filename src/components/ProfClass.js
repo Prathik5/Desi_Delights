@@ -51,5 +51,4 @@ class ProfClass extends React.Component{
     }
     }
 
-export default ProfClass;
-
+export default ProfClass; 

@@ -1,15 +1,13 @@
-import { restaurantList } from "../Config";
+
 import RestrauntCart from "./RestrauntCart";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import { filterData } from "../utils/Helper";
+import { Body_Page } from "../Config";
+import useOnline from "../utils/useOnline";
 
 
-
-const filterData = (searchText, restaurant) =>{
-    return restaurant.filter((restaurant) =>
-    restaurant.data.name.toLowerCase()?.includes(searchText?.toLowerCase()))
-};
 
 const Body = () =>{
     const [allrestaraunt, setAllRestaraunt] = useState([]);
@@ -23,7 +21,7 @@ const Body = () =>{
   }, [])
 
   async function getRestaurant() {
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9642076&lng=77.62067689999999&page_type=DESKTOP_WEB_LISTING")
+    const data = await fetch(Body_Page)
     const json = await data.json();
     console.log(json);
     setAllRestaraunt(json?.data?.cards[2]?.data?.data?.cards);
@@ -31,10 +29,9 @@ const Body = () =>{
 
   }
 
+
+
   if(!allrestaraunt) return null ;
-  
-  // if(filteredrestaurant?.length === 0) 
-  //   return <h1>No matching restaurant found</h1>
 
     return (allrestaraunt?.length === 0) ?
      <Shimmer/>
@@ -43,21 +40,21 @@ const Body = () =>{
      
      ( 
       <> 
-      <div className="searchBar">
+      <div className="searchBar p-2 my-5 bg-transparent">
         <input 
             type="text"
             placeholder="Search"
-            className="search-holder"
+            className="bg-black text-white focus:bg-green-200 p-2 m-2"
             value= {searchText} 
             onChange = { (e) =>{
                 setSearchText(e.target.value)
             }}/>
-        <button className="search-btn" onClick={() =>{
+        <button className="p-2 m-2 bg-Swiggy-orange hover:bg-gray-600 text-white rounded-md " onClick={() =>{
            const data = filterData(searchText, allrestaraunt) ;
            setFilteredrestaurant(data);
         }}>Search</button>
       </div> 
-        <div className="restaurant-list">
+        <div className="flex flex-wrap">
             {
                 filteredrestaurant.map((restaurant) =>{
                   if(filteredrestaurant?.length === 0) { 

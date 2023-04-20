@@ -1,35 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IMG_CDN } from "../Config";
+import { Fetch_Menu, IMG_CDN } from "../Config";
 import Shimmer from "./Shimmer";
 import Vegimg from "../Assets/Images/VegImage.jpg";
 import NonVegimg from "../Assets/Images/NonVegImg.png";
+import useMenu from "../utils/useMenu";
 
 
 
 const Menu = ()=>{
     const { id } = useParams();
 
-    const [restta, setRestta] = useState([]);
-
-    useEffect(()=>{
-        getRestroInfo();
-    },[])
-
-    async function getRestroInfo(){
-        let data, json;
-        try{
-         data = await fetch
-         (`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.93447270395668&lng=77.55282819271088&restaurantId=${id}&submitAction=ENTER`)
-         json =data.ok ? await data.json() : await Promise.reject(data.status);
-        }
-        catch(e){
-            console.warn("An Error Occured")
-        }
-        console.log(json)
-
-        setRestta(json.data.cards);
-    }
+    const restta = useMenu(id);
 
     const restName = restta[0]?.card?.card?.info?.name;
     const restImage = restta[0]?.card?.card?.info?.cloudinaryImageId;
@@ -60,22 +42,22 @@ const Menu = ()=>{
             </div>
             <hr />
 
-            <div className="Menu-item-box">
-                {/* <h1 >Menu</h1> */}
+            <div >
+                {/* <div>{restItems.title}</div> */}
                 <ul >{
                         restItems?.map((items, index) =>{
                             return( 
-                                    <div>
-                                        <div className="Just-checking" >
-                                            <li className="Item-name"  key={index}>{items.card.info.name}</li>
-                                            <span key = "JustVeg">{items.card.info.isVeg === 1 ? <img className="Veg-or-not" src={Vegimg} alt="Veg"/> : <img className="Veg-or-not" src={NonVegimg} alt="Non-Veg"/>}</span>
-                                            <h3 key = "Cost">&#8377;{(items.card.info.price)/100}</h3> 
-
-                                            <p key = "AboutFood">{items.card.info.description}</p>
+                                    <div className="flex items-center">
+                                        <div className="my-2 pl-[20%] py-2 w-[900px]" >
+                                            <span key = "JustVeg">{items.card.info.isVeg === 1 ? <img className="w-4 h-4" 
+                                                src={Vegimg} alt="Veg"/> : <img className="w-4 h-4" src={NonVegimg} alt="Non-Veg"/>}</span>
+                                                <li className="text-Cost font-bold"  key={index}>{items.card.info.name}</li>
+                                                <h3 key = "Cost" className="text-Cost">&#8377;{(items.card.info.price)/100}</h3> 
+                                                <p className="text-Item-description">{items.card.info.description}</p>
                                         </div>
 
-                                        <div className="CHecking-again">
-                                            <img className="Menu-Food-Picture" src={ IMG_CDN + items.card.info.imageId} alt="" />
+                                        <div className="pl-20" >
+                                            <img className="w-36" src={ IMG_CDN + items.card.info.imageId} alt={items.card.info.name} />
                                         </div>
                                         
                                         <hr />
