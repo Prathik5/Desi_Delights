@@ -1,25 +1,41 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useContext } from "react";
 import ReactDOM  from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
-import About from "./components/About";
+// import About from "./components/About";
 import Error from "./components/Error";
 import { createBrowserRouter, Router, RouterProvider, Outlet } from "react-router-dom";
 import Contact from "./components/Contact";
 import Menu from "./components/Menu";
 import Profile from "./components/Profile";
 // import Instamart from "./components/Instamart";
+import userContext from "./utils/userContext";
 
 const Instamart = lazy(() => import("./components/Instamart"))
 
+const About = lazy(() => import("./components/About"))
 
 const AppLayout = () => {
+
+  const[user, setUser] = useState({
+    name : "Prathik Prakash",
+    email : "prathikprakash8@gmail.com"
+  });
+  
+
+
+
   return(
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <userContext.Provider value={
+        {user : user,
+        setUser : setUser, }
+        }>
+        <Header />
+        <Outlet />
+        <Footer />
+      </userContext.Provider>
     </>
   )
 }
@@ -32,11 +48,14 @@ const appRouter = createBrowserRouter([
     children : [
       {
         path : "/",
-        element : <Body />
+        element : <Body user={{  
+          name : "Prathik Prakash",
+          email : "prathikprakash8@gmail.com"
+        }} />
       },
       {
         path : "/about",
-        element : <About/>,
+        element : <Suspense> <About/></Suspense>,
         children : [{
           path : "profile",
           element : <Profile />

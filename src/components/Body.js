@@ -1,20 +1,23 @@
 
 import RestrauntCart from "./RestrauntCart";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/Helper";
 import { Body_Page } from "../Config";
 import useOnline from "../utils/useOnline";
+import userContext from "../utils/userContext";
 
 
 
-const Body = () =>{
+const Body = ({user}) =>{
     const [allrestaraunt, setAllRestaraunt] = useState([]);
 
     const [filteredrestaurant, setFilteredrestaurant] = useState([])
 
     const [searchText, setSearchText] = useState();
+
+    const {user, setUser} = useContext(userContext)
 
   useEffect(() => {
     getRestaurant();
@@ -53,6 +56,13 @@ const Body = () =>{
            const data = filterData(searchText, allrestaraunt) ;
            setFilteredrestaurant(data);
         }}>Search</button>
+
+        <input value={user.name} onChange={e => {
+          setUser({
+            name: e.target.value,
+            email : "newEmail@gmail.com"}
+          )}} />
+
       </div> 
         <div className="flex flex-wrap">
             {
@@ -63,7 +73,7 @@ const Body = () =>{
                 else{  
                   return(
                     <Link to={"/restaurant/" + restaurant.data.id}>
-                    <RestrauntCart {...restaurant.data} key={restaurant.data.id}/>
+                    <RestrauntCart {...restaurant.data} key={restaurant.data.id} user = {user}/>
                     </Link>
                   )
               }

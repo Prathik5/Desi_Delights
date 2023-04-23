@@ -9,7 +9,9 @@ module.exports = {
         'Cuisine-grey' : '#535665',
         'Swiggy-orange' : '#fc8019',
         'Item-description' : "#282C3F",
-        'Cost' : "#3E4152"
+        'Cost' : "#3E4152",
+        'Hover-shimmer' : '#EFEFEE',
+        'shimmer-background' : '#EBEBF4'
       }
     },
   },
