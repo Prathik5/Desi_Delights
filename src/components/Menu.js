@@ -5,13 +5,25 @@ import Shimmer from "./Shimmer";
 import Vegimg from "../Assets/Images/VegImage.jpg";
 import NonVegimg from "../Assets/Images/NonVegImg.png";
 import useMenu from "../utils/useMenu";
+import { addItem, removeItem } from "../utils/cartSlice";
+import { useDispatch } from "react-redux";
 
 
 
 const Menu = ()=>{
+
+    const dispatch = useDispatch();
+
+    const handleAddItem = (item) => {
+        dispatch(addItem(item))
+    }
+    const handleRemoveItem = (item) => {
+        dispatch(removeItem(item))
+    }
+
     const { id } = useParams();
 
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
 
     const restta = useMenu(id);
 
@@ -47,28 +59,27 @@ const Menu = ()=>{
                         restItems?.map((items, index) =>{
                             return( 
                                     <div className="flex items-center">
-                                        <div>{items.title}</div>
+                                        <div className="text-Cost text-lg font-mono">{items.title}</div>
                                         <div className="my-2 pl-[25%] py-2 w-[900px]" >
                                             <span key = "JustVeg">{items.card.info.isVeg === 1 ? <img className="w-4 h-4" 
                                                 src={Vegimg} alt="Veg"/> : <img className="w-4 h-4" src={NonVegimg} alt="Non-Veg"/>}</span>
                                                 <li className="text-Cost font-bold"  key={index}>{items.card.info.name}</li>
-                                                <h3 key = "Cost" className="text-Cost">&#8377;{(items.card.info.price)/100}</h3> 
-                                                <p className="text-Item-description">{items.card.info.description}</p>
+                                                <h3 key = "Cost" className="text-Cost p-2">&#8377;{(items.card.info.price)/100}</h3> 
+                                                <p className="text-Item-description text-light p-2  font-Everything">{items.card.info.description}</p>
                                         </div>
 
                                         <div className="pl-20" >
-                                            <img className="w-36" src={ IMG_CDN + items.card.info.imageId} alt={items.card.info.name} />
-                                            <button>
-                                                <button className="text-white bg-Swiggy-orange px-1 m-1" 
-                                                onClick={ () =>
-                                                    setCount(count + 1)
-                                                }>+ </button>
-                                                <button className="text-white bg-Swiggy-orange px-2 m-2 ">{count}</button>
-                                                <button className="text-white bg-Swiggy-orange px-1 m-1" 
-                                                onClick={ () =>
-                                                    setCount(count - 1)
-                                                }>-</button>
-                                            </button>
+                                            <img className="w-36 pb-1" src={ IMG_CDN + items.card.info.imageId} alt={items.card.info.name} />
+                                            <div className="">
+                                                { items.length === 0 ? (
+                                                    <button className="px-5 bg-Swiggy-orange" onClick={() => handleAddItem(items)}>Add</button>    
+                                                ) :
+                                                <>
+                                                    <button className="mx-5 px-3" onClick={() => handleAddItem(items)}>+</button>
+                                                    <button className="mx-5 px-3" onClick={() => handleRemoveItem(items)}>-</button>
+                                                </>
+                                                }
+                                            </div>
                                         </div>
                                         
                                         <hr className="font-bold text-black "/>

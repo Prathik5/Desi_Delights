@@ -2,6 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import userContext from "../utils/userContext";
+import { useSelector } from "react-redux";
+import useLogin from "../utils/useLogin";
+import cartImg from "../Assets/Images/Cart.png";
+// import store from "../utils/store";
 
 const loggedInUser = () => {
   return true
@@ -17,45 +21,41 @@ const  Title = () =>{
   
 const Header = () =>{
 
-    const [isloggedIn, setIsLoggedIn] = useState(false);
+    const islogedIn = useLogin();
 
     const isOnline = useOnline();
 
     const {user} = useContext(userContext);
 
+    const cartItems = useSelector(store => store.cart.items);
+    console.log(cartItems)
+
     return (
-      <div className="flex justify-between bg-pink-50 shadow-lg sm:bg-blue-400 md:bg-yellow-600">
+      <div className="flex justify-between shadow-lg">
         <Title/>
         <h1> <a href="/" id="headd"> Foood Villa</a></h1>
         <div className="navItems">
           <ul className="flex py-10">
-            <li className="px-2">
+            <li className="px-2 text-Resto-Name hover:text-Swiggy-orange">
               <Link to="/">Home</Link>
             </li>
-            <li className="px-2">
+            <li className="px-2 text-Resto-Name hover:text-Swiggy-orange">
               <Link to="/about">About Us</Link>
             </li>
-            <li className="px-2">
+            <li className="px-2 text-Resto-Name hover:text-Swiggy-orange">
               <Link to="/contact"> Contact Us</Link>
             </li>
-            <li className="px-2">
+            <li className="px-2 text-Resto-Name hover:text-Swiggy-orange">
               <Link to = "/instamart">Instamart</Link>
             </li>
-            <li className="px-2">Cart</li>
+            <li className="px-2 text-Resto-Name hover:text-Swiggy-orange">
+             <Link to = "/cart"><img src={cartImg} alt="Cart" className="w-8 h-8" /></Link>
+            </li>
+            <sup className="bg-Swiggy-orange text-white text-sm font-light w-4 h-4 px-1 pb-2 rounded-2xl">{cartItems.length}</sup>
+            
           </ul>
         </div>
-        <h1>{isOnline? "✅" : "🔴"} </h1>
-        <h1 className="p-2 font-bold text-white ">{user.name}</h1>
-        {
-          isloggedIn ? <button onClick={() =>{
-            setIsLoggedIn(false)
-          }
-          }>Logout</button> : 
-          <button onClick={() =>{
-            setIsLoggedIn(true)
-          }
-        }>Login</button> 
-      }          
+        <button>{islogedIn ? "Login" : "Logout" }</button>          
       </div>
     );
   };

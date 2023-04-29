@@ -11,6 +11,9 @@ import Menu from "./components/Menu";
 import Profile from "./components/Profile";
 // import Instamart from "./components/Instamart";
 import userContext from "./utils/userContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Cart, {addItems, removeItems, clear} from "./components/Cart";
 
 const Instamart = lazy(() => import("./components/Instamart"))
 
@@ -27,7 +30,7 @@ const AppLayout = () => {
 
 
   return(
-    <>
+    <Provider store={store}>
       <userContext.Provider value={
         {user : user,
         setUser : setUser, }
@@ -36,7 +39,7 @@ const AppLayout = () => {
         <Outlet />
         <Footer />
       </userContext.Provider>
-    </>
+    </Provider>
   )
 }
 
@@ -55,14 +58,17 @@ const appRouter = createBrowserRouter([
       },
       {
         path : "/about",
-        element : <Suspense> <About/></Suspense>,
+        element : (
+        <Suspense>          
+          <About/>
+        </Suspense>),
         children : [{
           path : "profile",
           element : <Profile />
         }]
       },
       {
-        path : "/contact",
+        path : "/contact", 
         element : <Contact/>
       },
       {
@@ -76,7 +82,11 @@ const appRouter = createBrowserRouter([
           <Instamart/>
         </Suspense>
         )
-      }
+      },
+      {
+        path : "/cart", 
+        element : <Cart />
+      },
     ] 
   },
   

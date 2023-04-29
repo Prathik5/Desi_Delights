@@ -1,20 +1,25 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{html,js}"
-  ],
-  theme: {
-    extend: {
-      colors:{
-        'Cuisine-grey' : '#535665',
-        'Swiggy-orange' : '#fc8019',
-        'Item-description' : "#282C3F",
-        'Cost' : "#3E4152",
-        'Hover-shimmer' : '#EFEFEE',
-        'shimmer-background' : '#EBEBF4'
-      }
-    },
+export const content = [
+  "./src/**/*.{html,js}"
+];
+export const theme = {
+  fontFamily: {
+    'Everything' : 'ProximaNova,arial,Helvetica Neue,sans-serif'
   },
-  plugins: [],
-}
+  extend: {
+    colors: {
+      "Promoted-color": "#3A3C41",
+      'Resto-Name': '#282C3F',
+      'Rating-background': '#48C479',
+      'Bad-rating-bacround': '#DB7C38',
+      'Cuisine-grey': '#535665',
+      'Swiggy-orange': '#fc8019',
+      'Item-description': "rgb(40, 44, 53 / 45%)",
+      'Cost': "#3E4152",
+      'Hover-shimmer': '#EFEFEE',
+      'shimmer-background': '#EBEBF4'
+    }
+  },
+};
+export const plugins = [];
 

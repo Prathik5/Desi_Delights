@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { IMG_CDN } from "../Config";  
-import userContext from "../utils/userContext";
 
 const RestrauntCart = ( {
     cloudinaryImageId,
@@ -10,31 +9,37 @@ const RestrauntCart = ( {
     costForTwoString,
     avgRating,
     deliveryTime,
+    promoted
   }) => {
 
-    const {user} = useContext(userContext)
 
     return(
       <>
-        <div>      
-          <div className="w-80 h-[400px] p-2 m-2 shadow bg-pink-50">
-            <div>
-            <img className=" w-64 h-52"  src = 
+        <div>  
+
+          <div className="w-80 h-[450px] p-2 m-2 hover:shadow-2xl">
+            {promoted ? 
+            <div className="bg-Promoted-color text-white w-[25%] h-5  font-light text-sm">PROMOTED</div>:
+            <div></div>}
+            <div className="p-2 m-2">
+            <img className=" w-64 h-52 "  src = 
             { IMG_CDN + cloudinaryImageId}
             alt="Picture" title={name}
             />
             </div>
-            <div className="">
-              <h2 className="font-bold text-xl ">{name}</h2>
-              <span className="text-Cuisine-grey">{cuisines.join(", ")}</span>
+            <div className="p-2">
+              <h2 className="font-[500] font-siz text-lg text-Resto-Name font-sans ">{name}</h2>
+              <span className="text-Cuisine-grey text-sm font-serif">{cuisines.join(", ")}</span>
             </div>
-            <div>
-              <span className= "bg-green-400 ">&#9733; {avgRating }</span>
-              <span className="px-2">&middot;</span>
-              <span className="">{deliveryTime} mins</span>
-              <span className="px-2">&middot;</span>
-              <span className="Cost-display">{costForTwoString.toLowerCase()}</span>
-              <div className="font-bold  text-red-500">{user.name} - {user.email}</div>            
+            <div  className="p-4">
+              {avgRating >= 4? 
+                <span className= "bg-Rating-background text-white px-1 mx-1 text-xs">&#9733; {avgRating}</span>:
+                <span className= "bg-Bad-rating-bacround text-white px-1 mx-1 text-xs">&#9733; {avgRating}</span>
+                }
+              <span className="px-2 font-extrabold text-Cuisine-grey">&middot;</span>
+              <span className="text-Cuisine-grey font-[120] text-xs">{deliveryTime} MINS</span>
+              <span className="px-2 font-extrabold text-Cuisine-grey">&middot;</span>
+              <span className="text-Cuisine-grey font-thin text-xs">{costForTwoString.toUpperCase()}</span>
             </div>
             <hr />
           </div>
@@ -43,4 +48,4 @@ const RestrauntCart = ( {
     )
   };
 
-  export default RestrauntCart
+  export default RestrauntCart;

@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { filterData } from "../utils/Helper";
 import { Body_Page } from "../Config";
 import useOnline from "../utils/useOnline";
-import userContext from "../utils/userContext";
+// import userContext from "../utils/userContext";
+import searchbutton from "../Assets/Images/search_button.png";
 
 
 
@@ -17,7 +18,7 @@ const Body = ({user}) =>{
 
     const [searchText, setSearchText] = useState();
 
-    const {user, setUser} = useContext(userContext)
+    // const {user, setUser} = useContext(userContext);
 
   useEffect(() => {
     getRestaurant();
@@ -47,22 +48,16 @@ const Body = ({user}) =>{
         <input 
             type="text"
             placeholder="Search"
-            className="bg-black text-white focus:bg-green-200 p-2 m-2"
+            className="bg-black text-white h-6"
             value= {searchText} 
             onChange = { (e) =>{
                 setSearchText(e.target.value)
             }}/>
-        <button className="p-2 m-2 bg-Swiggy-orange hover:bg-gray-600 text-white rounded-md " onClick={() =>{
-           const data = filterData(searchText, allrestaraunt) ;
-           setFilteredrestaurant(data);
-        }}>Search</button>
-
-        <input value={user.name} onChange={e => {
-          setUser({
-            name: e.target.value,
-            email : "newEmail@gmail.com"}
-          )}} />
-
+        <button className=" bg-Swiggy-orange hover:bg-gray-600 text-white rounded-md " onClick={() =>{
+          const data = filterData(searchText, allrestaraunt) ;
+          setFilteredrestaurant(data);
+          }}><img className="w-5 h-5" src={searchbutton}/>
+        </button>
       </div> 
         <div className="flex flex-wrap">
             {
@@ -73,7 +68,7 @@ const Body = ({user}) =>{
                 else{  
                   return(
                     <Link to={"/restaurant/" + restaurant.data.id}>
-                    <RestrauntCart {...restaurant.data} key={restaurant.data.id} user = {user}/>
+                    <RestrauntCart {...restaurant.data} key={restaurant.data.id} />
                     </Link>
                   )
               }
