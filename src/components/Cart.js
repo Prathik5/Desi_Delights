@@ -23,29 +23,31 @@ const Cart = () => {
 
   return (
     <div>
-      <button onClick={handleClear} className='p-2 m-2 bg-black text-white hover:bg-Swiggy-orange hover:text-black '>
-        Clear Cart
+      <div>
+        <button onClick={handleClear} className='p-2 m-2 bg-black text-white hover:bg-Swiggy-orange hover:text-black '>
+          Clear Cart
         </button>
+        
+      </div>
         {cart.map((order) => {
             return (
-              <div key={order.card.info.id} className='flex'>
-                <div>
-                  <div className='font-light text-sm text-Item-description p-2 m-2'>
-                    {order?.card?.info?.name}
+              <div key={order.card.info.id}>
+                <div  className='flex'>
+                  <div>
+                    <img key="Item-image" src ={`${IMG_CDN}${order?.card?.info?.imageId}`}  alt="Dish" className='w-24 h-24' />
                   </div>
-                  <div className='font-light text-sm text-Item-description p-2 m-2'>
-                    &#8377;{(order?.card?.info?.price)/100}
-                  </div>
-                  <div className='font-light text-sm text-Item-description p-2 m-2'>
-                    {order?.card?.info?.description}
+                  <div className='container'>
+                    <div key="Item-name" className='font-bold text-lg text-Item-description px-2 mx-2'>
+                      {order?.card?.info?.name}
+                    </div>
+                    <div key = "Item-price" className='font-light text-base text-Item-description px-2 mx-2'>
+                      &#8377;{(order?.card?.info?.price)/100}
+                    </div>
+                    <div key="Item-description" className='font-light text-sm text-Item-description px-2 mx-2'>
+                      {order?.card?.info?.description}
+                    </div>
                   </div>
                 </div>
-                <div>
-                <img src ={`${IMG_CDN}${order?.card?.info?.imageId}`}  alt="Dish" className='w-20 h-20' />
-                </div>
-                <button onClick={handleAddItem(order)}>+</button>
-                <button onClick={handleRemoveItem(order)}>-</button>
-              <hr />
               </div>
             )
         })}

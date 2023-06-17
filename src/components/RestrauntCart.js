@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { IMG_CDN } from "../Config";  
 
 const RestrauntCart = ( {
@@ -22,10 +21,7 @@ const RestrauntCart = ( {
             <div className="bg-Promoted-color text-white w-[25%] h-5  font-light text-sm">PROMOTED</div>:
             <div></div>}
             <div className="p-2 m-2">
-            <img className=" w-64 h-52 "  src = 
-            { IMG_CDN + cloudinaryImageId}
-            alt="Picture" title={name}
-            />
+            <img className=" w-64 h-52 "  src = { IMG_CDN + cloudinaryImageId} alt="Picture" title={name}/>
             </div>
             <div className="p-2">
               <h2 className="font-[500] font-siz text-lg text-Resto-Name font-sans ">{name}</h2>

@@ -54,8 +54,9 @@ const Menu = ()=>{
             <hr className="p-2 w-2 " />
 
             <div >
+
                 {/* <div>{restItems.title}</div> */}
-                <ul >{
+                <ul data-testid = "menu">{
                         restItems?.map((items, index) =>{
                             return( 
                                     <div className="flex items-center">
@@ -65,8 +66,9 @@ const Menu = ()=>{
                                                 src={Vegimg} alt="Veg"/> : <img className="w-4 h-4" src={NonVegimg} alt="Non-Veg"/>}</span>
                                                 <li className="text-Cost font-bold"  key={index}>{items.card.info.name}</li>
                                                 <h3 key = "Cost" className="text-Cost p-2">&#8377;{(items.card.info.price)/100}</h3> 
-                                                <p className="text-Item-description text-light p-2  font-Everything">{items.card.info.description}</p>
+                                                <p className="text-Item-description text-light p-2  font-Everything text-sm">{items.card.info.description}</p>    
                                         </div>
+                                        <hr />
 
                                         <div className="pl-20" >
                                             <img className="w-36 pb-1" src={ IMG_CDN + items.card.info.imageId} alt={items.card.info.name} />
@@ -75,8 +77,8 @@ const Menu = ()=>{
                                                     <button className="px-5 bg-Swiggy-orange" onClick={() => handleAddItem(items)}>Add</button>    
                                                 ) :
                                                 <>
-                                                    <button className="mx-5 px-3" onClick={() => handleAddItem(items)}>+</button>
-                                                    <button className="mx-5 px-3" onClick={() => handleRemoveItem(items)}>-</button>
+                                                    <button data-testid = "add-btn" className="mx-5 px-3 hover:bg-black hover:text-Swiggy-orange" onClick={() => handleAddItem(items)}>+</button>
+                                                    <button className="mx-5 px-3 hover:bg-black hover:text-Swiggy-orange " onClick={() => handleRemoveItem(items)}>-</button>
                                                 </>
                                                 }
                                             </div>

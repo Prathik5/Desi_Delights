@@ -8,6 +8,7 @@ import { Body_Page } from "../Config";
 import useOnline from "../utils/useOnline";
 // import userContext from "../utils/userContext";
 import searchbutton from "../Assets/Images/search_button.png";
+import Corousel from "./Corousel";
 
 
 
@@ -18,6 +19,8 @@ const Body = ({user}) =>{
 
     const [searchText, setSearchText] = useState();
 
+    const [offerscreen, setofferscreen] = useState();
+
     // const {user, setUser} = useContext(userContext);
 
   useEffect(() => {
@@ -27,9 +30,10 @@ const Body = ({user}) =>{
   async function getRestaurant() {
     const data = await fetch(Body_Page)
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     setAllRestaraunt(json?.data?.cards[2]?.data?.data?.cards);
     setFilteredrestaurant(json?.data?.cards[2]?.data?.data?.cards);
+    setofferscreen(json?.data?.cards[0]);
 
   }
 
@@ -44,22 +48,32 @@ const Body = ({user}) =>{
      
      ( 
       <> 
-      <div className="searchBar p-2 my-5 bg-transparent">
+      {/* {<div>{
+        corousel.map(() =>{
+          corousel.length ===0 ? 
+            <h1>No Offers available </h1>
+          :
+          <Corousel/>
+        })}
+      </div> 
+      console.log(filteredrestaurant)} */}
+      <div key="Checking" className="searchBar p-2 my-5 bg-transparent ">
         <input 
+            data-testid="search-input"
             type="text"
             placeholder="Search"
-            className="bg-black text-white h-6"
+            className="bg-black text-Swiggy-orange h-6"
             value= {searchText} 
             onChange = { (e) =>{
                 setSearchText(e.target.value)
             }}/>
-        <button className=" bg-Swiggy-orange hover:bg-gray-600 text-white rounded-md " onClick={() =>{
+        <button data-testid="search-btn" className=" bg-Swiggy-orange hover:bg-gray-600 text-white rounded-md " onClick={() =>{
           const data = filterData(searchText, allrestaraunt) ;
           setFilteredrestaurant(data);
           }}><img className="w-5 h-5" src={searchbutton}/>
         </button>
       </div> 
-        <div className="flex flex-wrap">
+        <div key="Checking-again" className="flex flex-wrap" data-testid = "res-list">
             {
                 filteredrestaurant.map((restaurant) =>{
                   if(filteredrestaurant?.length === 0) { 
