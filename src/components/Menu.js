@@ -33,10 +33,10 @@ const Menu = () => {
   const restcost = restDetail?.costForTwoMessage;
   const restArea = restDetail?.areaName;
 
-  const restoffers = restta[1]?.card?.card?.gridElements?.infoWithStyle?.offers;
-  //   console.log(restoffers);
+  // const restoffers = restta[1]?.card?.card?.gridElements?.infoWithStyle?.offers;
+  // console.log(restoffers);
 
-  console.log(restta);
+  // console.log(restta);
 
   const restItems =
     restta[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
@@ -46,6 +46,7 @@ const Menu = () => {
     <Shimmer />
   ) : (
     <div className="Menu">
+      {/* This is the Header section */}
       <div className="flex justify-evenly items-center ">
         <div className="">
           <div className="font-bold p-2 m-2 text-Resto-Name">{restName}</div>
@@ -71,13 +72,30 @@ const Menu = () => {
       </div>
       <hr className="p-2 w-2 " />
 
+      {/* This is the offers section if any */}
+      {/* <div className="flex items-center justify-center">
+        {restoffers.map((offer) => {
+          // console.log(offer.info);
+          return (
+            <div className="border border-black font-thin m-2 py-2 w-52 h-16">
+              <div>{offer.info.header}</div>
+              <hr />
+              <span className="w-8 font-Everything">
+                {offer.info.couponCode.toLowerCase()}
+              </span>{" "}
+              <span>{offer.info.description.toLowerCase()}</span>
+            </div>
+          );
+        })}
+      </div> */}
+
+      {/* This is the menu section */}
       <div>
         {/* <div>{restItems.title}</div> */}
         <ul data-testid="menu">
           {restItems?.map((items, index) => {
             return (
               <div className="flex items-center">
-                {/* <div className="text-Cost text-lg font-mono">{items.title}</div> */}
                 <div className="my-2 pl-[25%] py-2 w-[900px]">
                   <span key="JustVeg">
                     {items.card.info.isVeg === 1 ? (

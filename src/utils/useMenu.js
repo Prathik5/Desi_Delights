@@ -17,7 +17,7 @@ const useMenu = (id) => {
     } catch (e) {
       console.warn("An Error Occured");
     }
-    // console.log(json)
+    // console.log(json);
 
     setRestta(json?.data?.cards);
   }

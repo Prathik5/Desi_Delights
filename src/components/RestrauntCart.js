@@ -4,11 +4,9 @@ const RestrauntCart = ({
   cloudinaryImageId,
   name,
   cuisines,
-  area,
-  costForTwoString,
+  costForTwo,
   avgRating,
   deliveryTime,
-  promoted,
 }) => {
   return (
     <>
@@ -57,7 +55,7 @@ const RestrauntCart = ({
               &middot;
             </span>
             <span className="text-Cuisine-grey font-semibold text-xs">
-              {costForTwoString.toUpperCase()}
+              {costForTwo}
             </span>
           </div>
           <hr />
