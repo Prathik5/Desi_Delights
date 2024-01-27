@@ -7,6 +7,7 @@ import NonVegimg from "../Assets/Images/NonVegImg.png";
 import useMenu from "../utils/useMenu";
 import { addItem, removeItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,13 @@ const Menu = () => {
 
   const { id } = useParams();
 
+  const { isAuthenticated } = useAuth0();
   // const [count, setCount] = useState(0);
 
   const restta = useMenu(id);
 
   const restDetail = restta[0]?.card?.card?.info;
+  // console.log(restDetail);
 
   const restName = restDetail?.name;
   const restCity = restDetail?.city;
@@ -33,14 +36,28 @@ const Menu = () => {
   const restcost = restDetail?.costForTwoMessage;
   const restArea = restDetail?.areaName;
 
-  // const restoffers = restta[1]?.card?.card?.gridElements?.infoWithStyle?.offers;
-  // console.log(restoffers);
-
-  // console.log(restta);
-
   const restItems =
     restta[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
       ?.itemCards;
+
+  let allFooditems = restta[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+  let reqFoodItems = allFooditems?.slice(1);
+  let MenuItems = reqFoodItems?.map((reqFood) => {
+    menuArray = reqFood?.card?.card?.itemCards;
+    menuObject = Object.assign({}, menuArray);
+    // menuObject = { ...menuArray };
+    return menuObject;
+  });
+
+  // let finalMenu = MenuItems?.map((finall) => {
+  //   return finall;
+  // });
+
+  console.log(restItems);
+  console.log(MenuItems);
+  // console.log(finalMenu);
+
+  // !----------------------------------HERE ENDS THE CORE JAVASCRIPT PART--------------------------------------------------------!
 
   return !restta ? (
     <Shimmer />
@@ -71,44 +88,27 @@ const Menu = () => {
         </div>
       </div>
       <hr className="p-2 w-2 " />
-
-      {/* This is the offers section if any */}
-      {/* <div className="flex items-center justify-center">
-        {restoffers.map((offer) => {
-          // console.log(offer.info);
-          return (
-            <div className="border border-black font-thin m-2 py-2 w-52 h-16">
-              <div>{offer.info.header}</div>
-              <hr />
-              <span className="w-8 font-Everything">
-                {offer.info.couponCode.toLowerCase()}
-              </span>{" "}
-              <span>{offer.info.description.toLowerCase()}</span>
-            </div>
-          );
-        })}
-      </div> */}
-
       {/* This is the menu section */}
       <div>
         {/* <div>{restItems.title}</div> */}
         <ul data-testid="menu">
           {restItems?.map((items, index) => {
+            console.log(items);
             return (
               <div className="flex items-center">
                 <div className="my-2 pl-[25%] py-2 w-[900px]">
                   <span key="JustVeg">
-                    {items.card.info.isVeg === 1 ? (
+                    {items?.card?.info?.isVeg === 1 ? (
                       <img className="w-4 h-4" src={Vegimg} alt="Veg" />
                     ) : (
                       <img className="w-4 h-4" src={NonVegimg} alt="Non-Veg" />
                     )}
                   </span>
                   <li className="text-Cost font-bold" key={index}>
-                    {items.card.info.name}
+                    {items?.card?.info?.name}
                   </li>
                   <h3 key="Cost" className="text-Cost p-2">
-                    &#8377;{items.card.info.price / 100}
+                    &#8377;{items?.card?.info?.price / 100}
                   </h3>
                 </div>
                 <hr className="bg-black" />
@@ -116,20 +116,28 @@ const Menu = () => {
                 <div className="pl-20">
                   <img
                     className="w-36 h-28"
-                    src={IMG_CDN + items.card.info.imageId}
-                    alt={items.card.info.name}
+                    src={IMG_CDN + items?.card?.info?.imageId}
+                    alt={items?.card?.info?.name}
                   />
                   <div className="flex p-2">
                     <button
                       data-testid="add-btn"
                       className="mx-5 px-3 hover:bg-black hover:text-Swiggy-orange"
-                      onClick={() => handleAddItem(items)}
+                      onClick={() => {
+                        isAuthenticated ? handleAddItem(items) : <></>;
+                      }}
                     >
                       +
                     </button>
                     <button
                       className="mx-5 px-3 hover:bg-black hover:text-Swiggy-orange "
-                      onClick={() => handleRemoveItem(items)}
+                      onClick={() => {
+                        isAuthenticated ? (
+                          handleRemoveItem(items)
+                        ) : (
+                          <alert>Please Login</alert>
+                        );
+                      }}
                     >
                       -
                     </button>

@@ -41,22 +41,22 @@ const Footer = () => {
         <div>
           <ul>
             <li>
-              <a href="">
+              <button>
                 <img
                   src={PlayStore}
                   alt="playstore_download"
                   className="w-full h-20"
                 />
-              </a>
+              </button>
             </li>
             <li>
-              <a href="">
+              <button>
                 <img
                   src={AppStore}
                   alt="Appstore_download"
                   className="w-full h-20"
                 />
-              </a>
+              </button>
             </li>
           </ul>
         </div>

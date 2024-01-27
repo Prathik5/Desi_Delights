@@ -18,16 +18,18 @@ const Body = ({}) => {
   async function getRestaurant() {
     const data = await fetch(Body_Page);
     const json = await data.json();
+    // console.log(json);
     setAllRestaraunt(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredrestaurant(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setCarousel(
       json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
     );
   }
+  console.log(allrestaraunt);
 
   if (!allrestaraunt) return null;
 
@@ -36,7 +38,7 @@ const Body = ({}) => {
   ) : (
     <>
       {/* This is the carousel section */}
-      <div className="flex overflow-scroll ease-in-out overflow-x:auto">
+      {/* <div className="flex overflow-scroll ease-in-out overflow-x:auto">
         {carousel.map((x) => {
           return (
             <>
@@ -52,8 +54,8 @@ const Body = ({}) => {
             </>
           );
         })}
-      </div>
-      {/* This is the seacr bar */}
+      </div> */}
+      {/* This is the search bar */}
       <form onSubmit={(e) => e.preventDefault()}>
         <div
           key="InputSearch"
